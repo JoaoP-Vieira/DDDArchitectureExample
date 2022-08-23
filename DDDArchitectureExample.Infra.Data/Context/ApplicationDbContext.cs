@@ -8,6 +8,6 @@ namespace DDDArchitectureExample.Infra.Data.Context
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{ }
 
-		public DbSet<Hero> Heroes { get; set; }
+		public DbSet<Hero> Heroes { get; set; } = new DbSet<Hero>();
 	}
 }

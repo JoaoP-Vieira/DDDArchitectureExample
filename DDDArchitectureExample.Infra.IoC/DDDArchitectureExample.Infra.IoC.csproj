@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DDDArchitectureExample.Application\DDDArchitectureExample.Application.csproj" />
+    <ProjectReference Include="..\DDDArchitectureExample.Domain\DDDArchitectureExample.Domain.csproj" />
+    <ProjectReference Include="..\DDDArchitectureExample.Infra.Data\DDDArchitectureExample.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>
