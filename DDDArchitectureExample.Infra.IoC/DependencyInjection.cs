@@ -1,4 +1,6 @@
 ﻿using DDDArchitectureExample.Application.Mappings;
+using DDDArchitectureExample.Application.Services;
+using DDDArchitectureExample.Application.Services.Interfaces;
 using DDDArchitectureExample.Domain.Repositories;
 using DDDArchitectureExample.Infra.Data.Context;
 using DDDArchitectureExample.Infra.Data.Repositories;
@@ -15,7 +17,9 @@ namespace DDDArchitectureExample.Infra.IoC
 			IConfiguration configuration)
 		{
 			services.AddDbContext<ApplicationDbContext>(
-			opt => opt.UseSqlServer(configuration.GetConnectionString("")));
+			options => options.UseSqlServer(
+			configuration.GetConnectionString("DefaultConnection"),
+			opt => opt.MigrationsAssembly("DDDArchitectureExample.API")));
 
 			services.AddScoped<IHeroRepository, HeroRepository>();
 			
@@ -27,6 +31,7 @@ namespace DDDArchitectureExample.Infra.IoC
 			IConfiguration configuration)
 		{
 			services.AddAutoMapper(typeof(DomainToDTOMapping));
+			services.AddScoped<IHeroService, HeroService>();
 
 			return services;
 		}
