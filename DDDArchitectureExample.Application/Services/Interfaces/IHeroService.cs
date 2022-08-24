@@ -4,11 +4,11 @@ namespace DDDArchitectureExample.Application.Services.Interfaces
 {
 	public interface IHeroService
 	{
-		ResultService<List<HeroDTO>> GetAsync();
-		ResultService<HeroDTO> GetByEmailAsync(string email);
-		ResultService<HeroDTO> GetByIdAsync(int id);
-		ResultService<HeroDTO> CreateAsync(HeroDTO heroDTO, string password);
-		ResultService UpdateAsync(HeroDTO heroDTO, string password);
-		ResultService DeleteAsync(string email);
+		Task<ResultService<List<HeroDTO>>> GetAsync();
+		Task<ResultService<HeroDTO>> GetByEmailAsync(string email);
+		Task<ResultService<HeroDTO>> GetByIdAsync(int id);
+		Task<ResultService<HeroDTO>> CreateAsync(HeroDTO heroDTO, string password);
+		Task<ResultService> UpdateAsync(HeroDTO heroDTO, string password);
+		Task<ResultService> DeleteAsync(string email);
 	}
 }

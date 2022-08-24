@@ -7,7 +7,7 @@ using DDDArchitectureExample.Domain.Repositories;
 
 namespace DDDArchitectureExample.Application.Services
 {
-	internal class HeroService : IHeroService
+	public class HeroService : IHeroService
 	{
 		private readonly IHeroRepository _heroRepository;
 		private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace DDDArchitectureExample.Application.Services
 			_mapper = mapper;
 		}
 
-		public ResultService<HeroDTO> CreateAsync(HeroDTO heroDTO, string password)
+		public async Task<ResultService<HeroDTO>> CreateAsync(HeroDTO heroDTO, string password)
 		{
 			try
 			{
@@ -34,7 +34,7 @@ namespace DDDArchitectureExample.Application.Services
 
 				var data = _mapper.Map<Hero>(heroDTO);
 				data.Password = password;
-				var result = _heroRepository.CreateAsync(data);
+				var result = await _heroRepository.CreateAsync(data);
 
 				return ResultService.Ok(
 					"Hero added successfully!",
@@ -46,14 +46,14 @@ namespace DDDArchitectureExample.Application.Services
 			}
 		}
 
-		public ResultService DeleteAsync(string email)
+		public async Task<ResultService> DeleteAsync(string email)
 		{
 			try
 			{
 				if (string.IsNullOrEmpty(email))
 					throw new ArgumentNullException("Missing informations");
 
-				var result = _heroRepository.DeleteAsync(email);
+				await _heroRepository.DeleteAsync(email);
 
 				return ResultService.Ok("Hero deleted successfully!");
 			}
@@ -63,11 +63,11 @@ namespace DDDArchitectureExample.Application.Services
 			}
 		}
 
-		public ResultService<List<HeroDTO>> GetAsync()
+		public async Task<ResultService<List<HeroDTO>>> GetAsync()
 		{
 			try
 			{
-				var result = _heroRepository.GetAsync();
+				var result = await _heroRepository.GetAsync();
 				return ResultService.Ok(
 					"Search complete!",
 					_mapper.Map<List<HeroDTO>>(result));
@@ -78,14 +78,14 @@ namespace DDDArchitectureExample.Application.Services
 			}
 		}
 
-		public ResultService<HeroDTO> GetByEmailAsync(string email)
+		public async Task<ResultService<HeroDTO>> GetByEmailAsync(string email)
 		{
 			try
 			{
 				if (string.IsNullOrEmpty(email))
 					throw new ArgumentNullException("Missing informations");
 
-				var result = _heroRepository.GetByEmailAsync(email);
+				var result = await _heroRepository.GetByEmailAsync(email);
 				return ResultService.Ok(
 					"Search complete!",
 					_mapper.Map<HeroDTO>(result));
@@ -96,14 +96,14 @@ namespace DDDArchitectureExample.Application.Services
 			}
 		}
 
-		public ResultService<HeroDTO> GetByIdAsync(int id)
+		public async Task<ResultService<HeroDTO>> GetByIdAsync(int id)
 		{
 			try
 			{
 				if (id <= 0)
 					throw new ArgumentNullException("Bad informations");
 
-				var result = _heroRepository.GetByIdAsync(id);
+				var result = await _heroRepository.GetByIdAsync(id);
 				return ResultService.Ok(
 					"Search complete!",
 					_mapper.Map<HeroDTO>(result));
@@ -114,7 +114,7 @@ namespace DDDArchitectureExample.Application.Services
 			}
 		}
 
-		public ResultService UpdateAsync(HeroDTO heroDTO, string password)
+		public async Task<ResultService> UpdateAsync(HeroDTO heroDTO, string password)
 		{
 			try
 			{
@@ -130,7 +130,7 @@ namespace DDDArchitectureExample.Application.Services
 
 				var data = _mapper.Map<Hero>(heroDTO);
 				data.Password = password;
-				var result = _heroRepository.UpdateAsync(data);
+				await _heroRepository.UpdateAsync(data);
 
 				return ResultService.Ok("Hero updated successfully!");
 			}
